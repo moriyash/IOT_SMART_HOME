@@ -11,7 +11,9 @@ topic = "parking/spot1"
 
 class MQTTClient:
     def __init__(self):
-        self.client = mqtt.Client(clientname, clean_session=True)
+        self.client = mqtt.Client(client_id=clientname, clean_session=True, protocol=mqtt.MQTTv311)
+
+
         self.client.username_pw_set(username, password)
         self.client.connect(broker_ip, int(broker_port))
         self.client.loop_start()

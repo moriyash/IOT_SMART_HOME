@@ -59,7 +59,8 @@ def on_message(client, userdata, msg):
 # חיבור ל־MQTT והאזנה
 def main():
     init_db()
-    client = mqtt.Client(clientname, clean_session=True)
+    client = mqtt.Client(client_id="data_manage24", clean_session=True, protocol=mqtt.MQTTv311)
+
     client.username_pw_set(username, password)
     client.on_message = on_message
     client.connect(broker_ip, int(broker_port))
