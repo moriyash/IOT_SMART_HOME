@@ -33,7 +33,7 @@ class DHTWindow(QMainWindow):
         self.label = QLabel("Sending to: " + topic)
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.mqtt.send_random_status)
-        self.timer.start(5000)  # כל 5 שניות
+        self.timer.start(5000)  
 
         layout = QVBoxLayout()
         layout.addWidget(self.label)

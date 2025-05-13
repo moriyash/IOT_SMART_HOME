@@ -1,6 +1,6 @@
 import socket
 
-nb = 1  # 0 = broker של המכללה, 1 = broker ציבורי (HiveMQ)
+nb = 1  
 
 brokers = [
     str(socket.gethostbyname('vmm1.saaintertrade.com')),

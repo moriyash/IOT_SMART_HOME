@@ -9,7 +9,6 @@ clientname = "IOT_data_manager"
 sub_topic_base = "parking/spot"
 pub_alarm_topic = "parking/alarm"
 
-# התחברות למסד נתונים ויצירת טבלה אם לא קיימת
 def init_db():
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
@@ -22,7 +21,6 @@ def init_db():
     conn.commit()
     conn.close()
 
-# שמירת אירוע במסד הנתונים
 def save_to_db(spot, status):
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
@@ -31,7 +29,6 @@ def save_to_db(spot, status):
     conn.commit()
     conn.close()
 
-# בדיקה אם יש חניה תפוסה מעל זמן מסוים והוצאת התראה
 def check_for_alarms(client):
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
@@ -46,7 +43,6 @@ def check_for_alarms(client):
             print(msg)
     conn.close()
 
-# טיפול בהודעות MQTT
 def on_message(client, userdata, msg):
     topic = msg.topic
     status = msg.payload.decode("utf-8")
@@ -56,7 +52,6 @@ def on_message(client, userdata, msg):
         save_to_db(spot, status)
         check_for_alarms(client)
 
-# חיבור ל־MQTT והאזנה
 def main():
     init_db()
     client = mqtt.Client(client_id="data_manage24", clean_session=True, protocol=mqtt.MQTTv311)
