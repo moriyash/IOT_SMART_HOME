@@ -90,6 +90,11 @@ class MonitorGUI(QMainWindow):
 
         layout = QVBoxLayout()
         layout.addLayout(grid)
+        self.status_label = QLabel("System status will appear here")
+        self.status_label.setAlignment(Qt.AlignCenter)
+        self.status_label.setStyleSheet("font-weight: bold; color: blue;")
+        layout.addWidget(self.status_label)
+
         layout.addWidget(QLabel("Alarms:"))
         layout.addWidget(self.alarm_box)
 
@@ -106,6 +111,8 @@ class MonitorGUI(QMainWindow):
             "reserved": "lightblue"
         }
         self.status_buttons[index].setStyleSheet(f"background-color: {colors.get(status, 'gray')}")
+        self.update_status_label()
+
 
     def append_alarm(self, msg):
         self.alarm_box.append(msg)
@@ -115,6 +122,16 @@ class MonitorGUI(QMainWindow):
 
     def cancel_spot(self, index):
         self.mqtt.publish_cancel(index + 1)
+
+    def update_status_label(self):
+     colors = [btn.palette().button().color().name() for btn in self.status_buttons]
+     if all(c == "#ff0000" for c in colors):
+        self.status_label.setText("All parking spots are occupied")
+        self.status_label.setStyleSheet("color: red; font-weight: bold;")
+     else:
+        self.status_label.setText("Parking spots available")
+        self.status_label.setStyleSheet("color: green; font-weight: bold;")
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
