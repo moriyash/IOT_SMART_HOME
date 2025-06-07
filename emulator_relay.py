@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 import paho.mqtt.client as mqtt
 from mqtt_init import broker_ip, broker_port, username, password
 
-clientname = "Choose_Spot_" + str(id(object()))
+clientname = "IOT_relay_" + str(id(object()))
 
 class MQTTClient:
     def __init__(self, topic):

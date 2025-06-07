@@ -1,5 +1,4 @@
 import paho.mqtt.client as mqtt
-import os
 import sqlite3
 import time
 from datetime import datetime
@@ -12,7 +11,6 @@ pub_alarm_topic = "parking/alarm"
 
 def init_db():
     conn = sqlite3.connect(DB_FILE)
-    print("DB path:", os.path.abspath(DB_FILE))  # 👈 כאן נכניס את זה
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS parking_log (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,7 +20,6 @@ def init_db():
                 )''')
     conn.commit()
     conn.close()
-
 
 def save_to_db(spot, status):
     conn = sqlite3.connect(DB_FILE)

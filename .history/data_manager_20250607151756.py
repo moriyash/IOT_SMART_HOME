@@ -1,5 +1,4 @@
 import paho.mqtt.client as mqtt
-import os
 import sqlite3
 import time
 from datetime import datetime
